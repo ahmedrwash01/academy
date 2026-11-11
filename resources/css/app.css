@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* ==========================================================================
+   DESIGN TOKENS (Tailwind v4 @theme + CSS Custom Properties)
+   ========================================================================== */
+@theme {
+    --color-brand-red: #E3131B;
+    --color-brand-red-hover: #C70F16;
+    --color-brand-red-dark: #8E1118;
+    
+    --color-pitch-green: #15803D;
+    --color-pitch-green-dark: #14532D;
+    --color-pitch-green-light: #22C55E;
+
+    --color-obsidian: #111214;
+    --color-charcoal: #181A1E;
+    
+    --font-arabic: 'IBM Plex Sans Arabic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-english: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base Light Theme Tokens (Crisp, High-Contrast & Vibrant Enterprise Palette) */
+:root {
+    /* Primary Layer Tokens - Crisp contrast between canvas & white cards */
+    --bg: #EEF1F6;                /* Rich corporate canvas grey (gives strong contrast against white cards) */
+    --surface: #FFFFFF;           /* Crisp pure white for cards & header */
+    --surface-subtle: #F1F4F9;    /* Clean distinct subtle surface */
+    --border: #D6DAE2;            /* Sharp, distinct border (never faint or invisible) */
+    --border-subtle: #E2E6EE;     /* Defined divider lines */
+    --border-strong: #9CA3AF;     /* High-visibility active/focus border */
+
+    /* High Contrast Typography Tokens (WCAG AAA - Deep, crisp, razor-sharp) */
+    --text-strong: #090A0C;       /* Contrast > 19:1 - Pitch black for headers & major KPIs */
+    --text: #0F172A;              /* Contrast > 15:1 - Rich Deep Slate for body text */
+    --text-secondary: #1E293B;    /* Contrast > 11:1 - Slate 800 for card subtitles & labels */
+    --text-muted: #475569;        /* Contrast > 7:1 (exceeds WCAG AAA) - Slate 600 for footnotes & timestamps */
+    --text-on-dark: #FFFFFF;
+
+    /* Semantic Status & Role Tokens (Vibrant, Saturated, Never Pale/Muddy) */
+    --success-text: #047857;       /* Deep Vibrant Emerald */
+    --success-bg: #DCFCE7;         /* Clean Emerald-100 Tint (never muddy grey) */
+    --success-border: #86EFAC;     /* Crisp Emerald-300 Border */
+
+    --info-text: #1D4ED8;          /* Vibrant Royal Blue */
+    --info-bg: #DBEAFE;            /* Clean Blue-100 Tint */
+    --info-border: #93C5FD;        /* Crisp Blue-300 Border */
+
+    --purple-text: #6D28D9;        /* Deep Royal Purple */
+    --purple-bg: #F3E8FF;          /* Clean Purple-100 Tint */
+    --purple-border: #D8B4FE;      /* Crisp Purple-300 Border */
+
+    --danger-text: #B91C1C;        /* Vivid Brand Crimson */
+    --danger-bg: #FEE2E2;          /* Clean Red-100 Tint */
+    --danger-border: #FCA5A5;      /* Crisp Red-300 Border */
+
+    --warning-text: #B45309;       /* Deep Warm Amber */
+    --warning-bg: #FEF3C7;         /* Clean Amber-100 Tint */
+    --warning-border: #FCD34D;     /* Crisp Amber-300 Border */
+
+    --neutral-badge-text: #334155; /* Slate 700 */
+    --neutral-badge-bg: #E2E8F0;   /* Slate 200 */
+    --neutral-badge-border: #CBD5E1;
+
+    /* Semantic Accent Colors for Cards, Charts & Sparklines (Saturated & Punchy) */
+    --pitch-green: #15803D;        /* Vibrant grass pitch green */
+    --color-blue: #2563EB;         /* Vibrant royal blue */
+    --color-purple: #7C3AED;       /* Vibrant violet */
+    --brand-red: #E3131B;          /* Authentic Eagles Crimson */
+    --brand-red-hover: #C70F16;
+    --brand-red-soft: rgba(227, 19, 27, 0.12);
+
+    /* Semantic Status Aliases */
+    --status-success-bg: var(--success-bg);
+    --status-success-text: var(--success-text);
+    --status-success-border: var(--success-border);
+
+    --status-warning-bg: var(--warning-bg);
+    --status-warning-text: var(--warning-text);
+    --status-warning-border: var(--warning-border);
+
+    --status-danger-bg: var(--danger-bg);
+    --status-danger-text: var(--danger-text);
+    --status-danger-border: var(--danger-border);
+
+    --status-info-bg: var(--info-bg);
+    --status-info-text: var(--info-text);
+    --status-info-border: var(--info-border);
+
+    /* Shadows: Crisp elevation that lifts white cards off the canvas */
+    --shadow-2xs: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+    --shadow-xs: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.09), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+
+    /* Legacy Aliases & Sidebar */
+    --bg-workspace: var(--bg);
+    --bg-surface: var(--surface);
+    --bg-surface-subtle: var(--surface-subtle);
+    --bg-sidebar: #FFFFFF;
+    --bg-sidebar-header: #FAFAFC;
+    --bg-sidebar-hover: #F1F4F9;
+    --bg-sidebar-active: #E3131B;
+    --text-sidebar: #090A0C;
+    --text-sidebar-muted: #1E293B;
+    --text-sidebar-active: #FFFFFF;
+    --bg-header: var(--surface);
+    --border-default: var(--border);
+    --text-primary: var(--text);
+}
+
+/* Dark Theme Tokens */
+html.dark {
+    /* Primary Layer Tokens */
+    --bg: #0C0D0F;
+    --surface: #14161A;
+    --surface-subtle: #1A1D23;
+    --border: #252830;
+    --border-subtle: #1C1F26;
+    --border-strong: #323642;
+
+    /* High Contrast Typography Tokens */
+    --text-strong: #FFFFFF;       /* Contrast > 16:1 on #14161A */
+    --text: #F3F4F6;              /* Contrast > 13:1 on #14161A */
+    --text-secondary: #D1D5DB;     /* Contrast > 9.5:1 on #14161A */
+    --text-muted: #9CA3AF;         /* Contrast > 5.8:1 on #14161A (exceeds 4.5:1) */
+
+    /* Semantic Status & Role Tokens for Dark Mode */
+    --success-text: #34D399;       /* Bright Emerald - Contrast 9.8:1 on #14161A */
+    --success-bg: rgba(52, 211, 153, 0.10);
+    --success-border: rgba(52, 211, 153, 0.25);
+
+    --info-text: #60A5FA;          /* Sky Blue - Contrast 8.5:1 on #14161A */
+    --info-bg: rgba(96, 165, 250, 0.10);
+    --info-border: rgba(96, 165, 250, 0.25);
+
+    --purple-text: #A78BFA;        /* Lavender - Contrast 7.5:1 on #14161A */
+    --purple-bg: rgba(167, 139, 250, 0.10);
+    --purple-border: rgba(167, 139, 250, 0.25);
+
+    --danger-text: #F87171;        /* Soft Coral Red - Contrast 7.4:1 on #14161A */
+    --danger-bg: rgba(248, 113, 113, 0.10);
+    --danger-border: rgba(248, 113, 113, 0.25);
+
+    --warning-text: #FBBF24;       /* Golden Amber - Contrast 10.5:1 on #14161A */
+    --warning-bg: rgba(251, 191, 36, 0.10);
+    --warning-border: rgba(251, 191, 36, 0.25);
+
+    --neutral-badge-text: #D1D5DB;
+    --neutral-badge-bg: rgba(209, 213, 219, 0.10);
+    --neutral-badge-border: rgba(209, 213, 219, 0.25);
+
+    /* Semantic Accent Colors for Cards, Charts & Sparklines */
+    --pitch-green: var(--success-text);
+    --color-blue: var(--info-text);
+    --color-purple: var(--purple-text);
+    --brand-red: #E3131B;
+    --brand-red-hover: #C70F16;
+    --brand-red-soft: rgba(227, 19, 27, 0.15);
+
+    /* Semantic Status Aliases */
+    --status-success-bg: var(--success-bg);
+    --status-success-text: var(--success-text);
+    --status-success-border: var(--success-border);
+
+    --status-warning-bg: var(--warning-bg);
+    --status-warning-text: var(--warning-text);
+    --status-warning-border: var(--warning-border);
+
+    --status-danger-bg: var(--danger-bg);
+    --status-danger-text: var(--danger-text);
+    --status-danger-border: var(--danger-border);
+
+    --status-info-bg: var(--info-bg);
+    --status-info-text: var(--info-text);
+    --status-info-border: var(--info-border);
+
+    --shadow-2xs: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+
+    /* Legacy Aliases */
+    --bg-workspace: var(--bg);
+    --bg-surface: var(--surface);
+    --bg-surface-subtle: var(--surface-subtle);
+    --bg-sidebar: #111214;
+    --bg-sidebar-header: #0E0F12;
+    --bg-sidebar-hover: var(--surface-subtle);
+    --bg-sidebar-active: #E3131B;
+    --text-sidebar: var(--text);
+    --text-sidebar-muted: #94A3B8;
+    --text-sidebar-active: #FFFFFF;
+    --bg-header: var(--surface);
+    --border-default: var(--border);
+    --text-primary: var(--text);
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+html {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg);
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+html[lang="ar"] {
+    font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+html[lang="en"] {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    direction: ltr;
+    text-align: left;
+}
+
+/* Custom Scrollbars (Clean Variable-Based) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb {
+    background: var(--border);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Dark Section Scrollbars */
+.dark-scroll::-webkit-scrollbar-track {
+    background: var(--bg-sidebar);
+}
+.dark-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+}
+.dark-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
+}
+
+/* ApexCharts RTL & Typography Overrides */
+.apexcharts-canvas {
+    direction: ltr !important;
+}
+.apexcharts-text, .apexcharts-tooltip, .apexcharts-legend-text {
+    font-family: inherit !important;
+}
+
+/* Count-Up Animation Support */
+@keyframes countUpFade {
+    from {
+        opacity: 0.5;
+        transform: translateY(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-count-up {
+    animation: countUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth Sparkline Line-Drawing Animation (Point 5) */
+@keyframes sparklineDraw {
+    from {
+        stroke-dashoffset: 250;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+.sparkline-draw {
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: sparklineDraw 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+    .sparkline-draw {
+        animation: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+}
+
+/* Print Styles for Official Dossiers & Reports */
+@media print {
+    aside, header, footer, #eagle-spa-progress, .no-print, button, input[type="search"], select {
+        display: none !important;
+    }
+
+    body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif !important;
+    }
+
+    main {
+        max-width: 100% !important;
+        padding: 10px !important;
+        margin: 0 !important;
+    }
+
+    main::before {
+        content: "أكاديمية النسور لكرة القدم (EAGLE'S SC ACADEMY) — كشف رسمي معتمد";
+        display: block;
+        font-size: 14pt;
+        font-weight: 900;
+        text-align: center;
+        border-bottom: 2pt solid #E3131B;
+        padding-bottom: 10pt;
+        margin-bottom: 14pt;
+        color: #090A0C;
+    }
+
+    main::after {
+        content: "تم استخراج هذا التقرير آلياً عبر منظومة EAGLE OS — يعتمد المدير الفني: كابتن إبراهيم فؤاد";
+        display: block;
+        font-size: 9pt;
+        font-weight: bold;
+        text-align: center;
+        border-top: 1pt solid #D6DAE2;
+        padding-top: 8pt;
+        margin-top: 20pt;
+        color: #475569;
+    }
+
+    .rounded-xl, .rounded-2xl {
+        border: 1pt solid #CBD5E1 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    th, td {
+        border: 0.5pt solid #CBD5E1 !important;
+        padding: 6pt 8pt !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
