@@ -22,6 +22,11 @@ use App\Http\Controllers\UserController;
 |--------------------------------------------------------------------------
 */
 
+// Health Check Endpoint for Container & Cloud Deployment
+Route::get('/healthz', function () {
+    return response('OK', 200)->header('Content-Type', 'text/plain');
+});
+
 // Language Switcher (Ar <-> En with RTL/LTR)
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['ar', 'en'])) {

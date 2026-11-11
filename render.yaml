@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: eagle-os
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /healthz
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: APP_KEY
+        generateValue: true

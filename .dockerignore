@@ -1,0 +1,37 @@
+# Git & GitHub
+.git
+.github
+.gitignore
+.gitattributes
+
+# Environment & Sensitive Credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Dependencies (Installed inside Docker)
+/node_modules
+/vendor
+
+# Development & Test Files
+/tests
+phpunit.xml
+.phpunit.result.cache
+.editorconfig
+.vscode
+.idea
+
+# Logs & Framework Caches
+storage/logs/*.log
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/pail
+
+# SQLite Local Database
+database/*.sqlite*
+
+# System Files
+.DS_Store
+Thumbs.db
